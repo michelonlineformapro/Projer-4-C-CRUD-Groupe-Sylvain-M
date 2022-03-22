@@ -15,7 +15,8 @@ if(isset($_SESSION["email"])){
         <!-- Bootstrap CSS -->
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+        <link rel="stylesheet" href="../assets/css/mic_styles.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
@@ -102,7 +103,7 @@ if(isset($_SESSION["email"])){
                             <div class="text-center">
                                 <h4 class="card-title text-info"><?= $etudiants['nom_etudiant'] ?></h4>
                                 <h5 class="card-title text-info"><?= $etudiants['prenom_etudiant'] ?></h5>
-                                <img width="100" height="200" src="<?= $etudiants['avatar_etudiant'] ?>" class="card-img-top img-fluid" alt="<?= $etudiants['prenom_etudiant'] ?>" title="<?= $etudiants['prenom_etudiant'] ?>">
+                                <img src="<?= $etudiants['avatar_etudiant'] ?>" class="card-img-top img-fluid img-etudiant" alt="<?= $etudiants['prenom_etudiant'] ?>" title="<?= $etudiants['prenom_etudiant'] ?>">
                             </div>
 
                             <div class="card-body">

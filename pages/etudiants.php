@@ -1,62 +1,167 @@
+
 <?php
+//Demarrer la session php
 session_start();
-?>
 
-<!doctype html>
-<html lang="en">
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+if(isset($_SESSION["email"])){
+    ?>
+    <!doctype html>
+    <html lang="fr">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+        <!-- Bootstrap CSS -->
 
-    <title>Hello, world!</title>
-</head>
-<body>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-<?php
-//Connexionn a MysQl via la classe PDO
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Cabin:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
 
-$user = "root";
-$pass = "";
-$dbname = "ecommerce";
-$host = "localhost";
-
-try {
-
-    $db = new PDO("mysql:host=" . $host . ";dbname=" . $dbname . ";charset=UTF8", $user, $pass);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connexion a PDO MYSQL";
-
-} catch (PDOException $exception) {
-    echo "Erreur " . $exception->getMessage();
-    die();
-}
-
-//requet sql
-$sql = "SELECT * FROM `etudiants`";
-$etudiants = $db->query($sql);
-
-
-?>
-<div class="container"></div>
-    <div class="row">
+        <title>PHP CRUD ETUDIANTS</title>
+    </head>
+    <body>
+    <header>
         <?php
-        foreach ($etudiants as $etudiant){
+        require_once "menu.php";
+        ?>
+    </header>
+    <div class="container-fluid">
+            <span class="mt-3 d-flex justify-content-around">
+                <h3 class="mt-3 text-warning">BIENVENUE <?= $_SESSION['email'] ?></h3>
+                <form method="post">
+                    <div class="d-flex justify-content-center">
+                        <button id="btn-deconnexion" name="btn-deconnexion" class="btn btn-danger">DECONNEXION</button>
+                        <a href="inscription.php" class="mx-3 btn btn-info">Ajouter un administrateur</a>
+                    </div>
+
+                </form>
+            </span>
+
+
+        <?php
+        //Connexion a la base de donnée ecommerce via PDO
+        //Les variable de phpmyadmin
+        $user = "root";
+        $pass = "";
+        //test d'erreur
+        try {
+            /*
+             * PHP Data Objects est une extension définissant l'interface pour accéder à une base de données avec PHP. Elle est orientée objet, la classe s’appelant PDO.
+             */
+            //Instance de la classe PDO (Php Data Object)
+            $dbh = new PDO('mysql:host=localhost;dbname=ecommerce;charset=UTF8', $user, $pass);
+            //Debug de pdo
+            /*
+             * L'opérateur de résolution de portée (aussi appelé Paamayim Nekudotayim) ou, en termes plus simples,
+             * le symbole "double deux-points" (::), fournit un moyen d'accéder aux membres static ou constant, ainsi qu'aux propriétés ou méthodes surchargées d'une classe.
+             */
+            $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            echo "<p class='container alert alert-success text-center'>Vous êtes connectez a PDO MySQL</p>";
+
+        } catch (PDOException $e) {
+            print "Erreur !: " . $e->getMessage() . "<br/>";
+            die();
+        }
+
+        if($dbh){
+            //ATTENTION A CHAQUE REDIRECTION VERS LA PAGE PRODUITS on ajoute ?page=1
+
+
+
+            //Requète SQL de selection des produits avec une limte et un point de depart = OFFSET
+            $sql = "SELECT * FROM etudiants";
+            //Grace a PDO on accède à la methode query()
+            //PDO::query() prépare et exécute une requête SQL en un seul appel de fonction, retournant la requête en tant qu'objet PDOStatement. (etat des sonnées)
+            //PDOStatement = Représente une requête préparée et, une fois exécutée, le jeu de résultats associé.
+            $statement = $dbh->query($sql);
+
             ?>
-            <div class="col-md-4 col-sm-12">
-                <h4 class="text-info"><?= $etudiant['nom_etudiant'] ?> <?= $etudiant['prenom_etudiant'] ?></h4>
+            <?php
+        }
+
+        ?>
+
+        <div class="container">
+            <div class="text-center">
+                <a href="ajouter_etudiant.php" class="mt-3 btn btn-outline-secondary">Ajouter un etudiants</a>
+            </div>
+
+            <h4 class="mt-3 text-warning">Liste des etudiants</h4>
+
+            <div class="row">
+                <!--Pour chaque col on affiche une ligne de la table produits de la BDD ecommerce-->
+                <?php
+                foreach ($statement as $etudiants){
+                    $date_depot = new DateTime($etudiants['date_naissance_etudiant']);
+                    ?>
+                    <div class="col-sm-12 col-lg-4 mt-5">
+                        <div class="card">
+                            <div class="text-center">
+                                <h4 class="card-title text-info"><?= $etudiants['nom_etudiant'] ?></h4>
+                                <h5 class="card-title text-info"><?= $etudiants['prenom_etudiant'] ?></h5>
+                                <img width="100" height="200" src="<?= $etudiants['avatar_etudiant'] ?>" class="card-img-top img-fluid" alt="<?= $etudiants['prenom_etudiant'] ?>" title="<?= $etudiants['prenom_etudiant'] ?>">
+                            </div>
+
+                            <div class="card-body">
+
+                                <p class="card-text">Téléphone : <?= $etudiants['telephone_etudiant'] ?></p>
+                                <p class="card-text text-success fw-bold">email : <?= $etudiants['email_etudiant'] ?> €</p>
+                                <p class="card-text">Bacalauréat :
+                                    <?php
+                                    //var_dump($etudiants['stock_produit']);
+                                    if($etudiants['bac_etudiant'] == true){
+                                        echo "OUI";
+                                    }else{
+                                        echo "NON";
+                                    }
+                                    ?>
+                                </p>
+
+                                <em class="card-text">Date de naissance : <?= $date_depot->format('d-m-Y') ?></em>
+                                <br />
+                                <div class="container-fluid d-flex justify-content-center">
+
+                                    <a href="details_etudiant.php?id_etudiant=<?= $etudiants['id_etudiant'] ?>" class="mt-2 btn btn-success mx-2">Détails</a>
+                                    <a href="editer_etudiant.php?id_etudiant=<?= $etudiants['id_etudiant'] ?>" class="mt-2 btn btn-warning mx-2">Editer</a>
+                                    <a href="supprimer_etudiant.php?id_etudiant=<?= $etudiants['id_etudiant'] ?>" class="mt-2 btn btn-danger mx-2">Supprimer</a>
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <?php
+                }
+                ?>
 
             </div>
-        <?php
-        }
-?>
-
+        </div>
     </div>
+    </body>
+    </html>
 
 
-?>
-</body>
-</html>
+    <?php
+    //Deconnexion et destruction de la session $_SESSION['email']
+    function deconnexion(){
+        var_dump("hello");
+        echo "elloo";
+        session_unset();
+        session_destroy();
+        header('Location: ../index.php');
+    }
+
+    //Click sur le bouton de deconnexion
+    if(isset($_POST['btn-deconnexion'])){
+        deconnexion();
+    }
+
+}else{
+    echo "<a href='' class='btn btn-warning'>S'inscrire</a>";
+    header('Location: ../index.php');
+}
+
+

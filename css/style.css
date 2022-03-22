@@ -5,6 +5,9 @@ body{
 h1{
     text-align: center;
 }
+h2{
+    font-size: 26px;
+}
 
 .row{
     background-color: #FFFFFF;
@@ -40,10 +43,13 @@ h1{
 }
 .formateurs{
     display: flex;
-    width: 320px;
     padding: 20px;
+    flex-wrap : wrap;
 }
 .formateur{
     background-color: #FFFFFF;
-    padding: 20px
+    margin: 18px;
+    padding: 20px;
+    width: 310px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.3);
 }

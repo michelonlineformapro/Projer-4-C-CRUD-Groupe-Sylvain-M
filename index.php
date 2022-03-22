@@ -12,7 +12,7 @@ session_start();
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
-    <title>Hello, world!</title>
+    <title>Accueil</title>
 </head>
 <body>
 <form method="post">
@@ -57,12 +57,12 @@ function connexion()
     }
 
     if(isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['password']) && !empty($_POST['password'])){
-        //sanitize = desinfertcer les champs
+        //sanitize = desinfecter les champs
         $emailUser = trim(htmlspecialchars($_POST['email']));
         $passwordUser = trim(htmlspecialchars($_POST['password']));
 
         //requète SQL
-        $sql = "SELECT * FROM utilisateurs WHERE email = ? && password = ?";
+        $sql = "SELECT * FROM utilisateurs WHERE email_user = ? && pass_user = ?";
 
         $connexion = $db->prepare($sql);
         $connexion->bindParam(1, $emailUser);
@@ -73,8 +73,8 @@ function connexion()
         if($connexion->rowCount() >= 0){
             $ligne = $connexion->fetch();
             if($ligne){
-                $email = $ligne['email'];
-                $password = $ligne['password'];
+                $email = $ligne['email_user'];
+                $password = $ligne['pass_user'];
 
                 if($emailUser === $email && $passwordUser === $password){
                     $_SESSION['email'] = $emailUser;

@@ -3,6 +3,14 @@ session_start();
 if(!isset($_SESSION["email"])){
     header('Location:../index.php');
 }
+if(isset($_POST["deconnecte"])){
+    deconnexion();
+}
+function deconnexion(){
+    session_unset();
+    session_destroy();
+    header('Location:index.php');
+}
 ?>
 
 <!doctype html>

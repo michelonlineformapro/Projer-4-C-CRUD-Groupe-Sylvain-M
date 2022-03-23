@@ -55,13 +55,15 @@ if($connexion) {
         </form>
     </div>
     <div class="row">
+        <?php $date = new DateTime($res["date_naissance_formateur"]); ?>
         <h1><?= $res["prenom_formateur"]. " " .strtoupper($res["nom_formateur"]); ?></h1>
         <hr>
         <h2 class="text-center"><?= $res["matiere_formateur"]; ?></h2>
         <img src="<?= $res["avatar_formateur"] ?>" />
-        <p>Né le <?= $res["date_naissance_formateur"]." (<strong>" .$res["age_formateur"] . "ans</strong>)"; ?></p>
+        <p>Né le <?= $date->format("d-m-Y")." (<strong>" .$res["age_formateur"] . "ans</strong>)"; ?></p>
         <p>Joignable au <strong><?= $res["telephone_formateur"] ?></strong></p>
         <p>Adresse email : <?= $res["email_formateur"]; ?></p>
+        
 
     </div>
 </div>

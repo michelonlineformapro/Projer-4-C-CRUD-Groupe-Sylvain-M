@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 23 mars 2022 à 11:23
+-- Généré le : mer. 23 mars 2022 à 14:52
 -- Version du serveur : 10.4.22-MariaDB
 -- Version de PHP : 8.1.1
 
@@ -44,10 +44,11 @@ CREATE TABLE `formateurs` (
 --
 
 INSERT INTO `formateurs` (`id_formateur`, `nom_formateur`, `prenom_formateur`, `avatar_formateur`, `date_naissance_formateur`, `telephone_formateur`, `email_formateur`, `age_formateur`, `matiere_formateur`) VALUES
-(2, 'Michel', 'Michael', '../assets/img/dark.jpg', '1984-03-01 15:23:57', '00.00.00.00.00', 'm.michel@onlineformapro.com', 38, 'Développeur Web et Mobile'),
-(4, 'Bellont', 'Laurent', '../assets/img/link.jpg', '2021-01-15 09:24:42', '01.23.45.67.89', 'email@onlineformapro.com', 47, 'Développement Web et Web Mobile'),
-(6, 'Hendrix', 'Jimi', '../assets/img/jimi.jfif', '1942-11-27 09:16:06', '0123345678', 'hendrix-jimi@legend.com', 90, 'Formateur de guitare'),
-(7, 'Kurosaki', 'Ichigo', '../assets/img/ichigo.jfif', '0000-00-00 00:00:00', '01.23.34.56.78', 'ichigo-kurosaki@shinigami.com', 22, 'Technique pugilistique de haut niveau');
+(2, 'Michel', 'Michael', '../assets/img/link.jpg', '1984-03-01 15:23:57', '00.00.00.00.00', 'm.michel@onlineformapro.com', 38, 'Développeur Web et Mobile'),
+(4, 'Bellont', 'Laurent', '../assets/img/dark.jpg', '2021-01-15 09:24:42', '01.23.45.67.89', 'email@onlineformapro.com', 47, 'Développement Web et Web Mobile'),
+(6, 'Hendrix', 'Jimi', '../assets/img/jimi.jfif', '1942-11-27 09:16:06', '0123345678', 'hendrix-jimi@legend.com', 80, 'Formateur de guitare'),
+(7, 'Kurosaki', 'Ichigo', '../assets/img/ichigo.jfif', '2001-03-02 14:29:39', '01.23.34.56.78', 'ichigo-kurosaki@shinigami.com', 22, 'Technique pugilistique de haut niveau'),
+(9, 'Bon', 'Jean', '../assets/img/batman.jpg', '1986-12-02 00:00:00', '+33 06.31.03.24.XX', 'jean-bon@aoste.fr', 35, 'Prof de cuisine');
 
 --
 -- Index pour les tables déchargées
@@ -67,7 +68,7 @@ ALTER TABLE `formateurs`
 -- AUTO_INCREMENT pour la table `formateurs`
 --
 ALTER TABLE `formateurs`
-  MODIFY `id_formateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_formateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

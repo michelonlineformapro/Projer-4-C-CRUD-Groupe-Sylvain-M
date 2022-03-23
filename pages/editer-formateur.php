@@ -63,7 +63,7 @@ if($connexion){
             <input type="file" name="avatar" id="avatar" class="long" value="<?= $res["avatar_formateur"] ?>"><br><br>
 
             <label for="date-naissance">Date de naissance :</label><br>
-            <input type="text" name="date-naissance" id="date-naissance" value="<?= $res["date_naissance_formateur"] ?>"><br><br>
+            <input type="date" name="date-naissance" id="date-naissance" value="<?= $res["date_naissance_formateur"] ?>"><br><br>
 
             <label for="telephone">Téléphone :</label><br>
             <input type="tel" name="telephone" id="telephone" value="<?= $res["telephone_formateur"] ?>"><br><br>

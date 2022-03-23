@@ -18,7 +18,7 @@ session_start();
 <div class="container">
     <form method="post">
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email</label>
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
             <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
@@ -65,7 +65,7 @@ function connexion()
         $passwordUser = trim(htmlspecialchars($_POST['password']));
 
         //requète SQL
-        $sql = "SELECT * FROM utilisateurs WHERE email_user = ? && pass_user = ?";
+        $sql = "SELECT * FROM utilisateurs WHERE email = ? && password = ?";
 
         $connexion = $db->prepare($sql);
         $connexion->bindParam(1, $emailUser);
@@ -76,8 +76,8 @@ function connexion()
         if($connexion->rowCount() >= 0){
             $ligne = $connexion->fetch();
             if($ligne){
-                $email = $ligne['email_user'];
-                $password = $ligne['pass_user'];
+                $email = $ligne['email'];
+                $password = $ligne['password'];
 
                 if($emailUser === $email && $passwordUser === $password){
                     $_SESSION['email'] = $emailUser;

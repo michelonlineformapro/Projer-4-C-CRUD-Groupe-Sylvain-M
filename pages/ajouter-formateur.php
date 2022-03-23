@@ -41,7 +41,7 @@ function deconnexion(){
             <input type="file" name="avatar" id="avatar" class="long"><br><br>
 
             <label for="date-naissance">Date de naissance :</label><br>
-            <input type="text" name="date-naissance" id="date-naissance"><br><br>
+            <input type="date" name="date-naissance" id="date-naissance"><br><br>
 
             <label for="telephone">Téléphone :</label><br>
             <input type="tel" name="telephone" id="telephone"><br><br>

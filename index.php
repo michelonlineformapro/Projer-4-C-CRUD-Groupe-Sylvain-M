@@ -3,7 +3,7 @@ session_start();
 ?>
 
 <!doctype html>
-<html lang="en">
+<html lang="fr">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -11,21 +11,27 @@ session_start();
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="assets/css/mic_styles.css">
     <title>Accueil BACKEND PHP</title>
 </head>
 <body>
-<div class="container">
+<div class="container" id="form-login">
+    <h1 class="text-center text-info">
+        CRUD PROJET
+    </h1>
+    <h2 class="text-info text-center">
+        GROUPE GIT
+    </h2>
     <form method="post">
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <label for="exampleInputEmail1" class="form-label">Email</label>
             <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
             <label for="exampleInputPassword1" class="form-label">Mot de passe</label>
             <input type="password" name="password" class="form-control" id="exampleInputPassword1">
         </div>
-        <button type="submit" name="btn-connexion" class="btn btn-primary">Connexion</button>
+        <button type="submit" name="btn-connexion" class="btn btn-info">Connexion</button>
     </form>
 </div>
 

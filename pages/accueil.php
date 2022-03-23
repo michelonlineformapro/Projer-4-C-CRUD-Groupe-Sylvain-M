@@ -1,10 +1,7 @@
 <?php
 session_start();
 if(isset($_SESSION['email'])){
-    echo "Bienvenue " . $_SESSION['email'];
-    ?>
-        <a href="etudiants.php" class="btn btn-info">Liste des etudiants</a>
-    <?php
+
 }else{
     header("Location: ../index.php");
 }
@@ -23,6 +20,37 @@ if(isset($_SESSION['email'])){
     <title>Accueil</title>
 </head>
 <body>
+<header>
+    <?php
+    require_once "menu.php";
+    ?>
+
+</header>
+<div class="container">
+    <h3 class='text-center text-info'>Bienvenue <?= $_SESSION['email']?></h3>
+    <div class="row bg-dark">
+        <div class="col-md-4 col-sm-12 text-center p-5">
+            <h4 class="text-success">
+                ETUDIANTS
+            </h4>
+            <a href="etudiants.php" class="btn btn-success">CONSULTER</a>
+        </div>
+
+        <div class="col-md-4 col-sm-12 text-center p-5">
+            <h4 class="text-warning">
+               FORMATEURS
+            </h4>
+            <a href="formateurs.php" class="btn btn-warning">CONSULTER</a>
+        </div>
+
+        <div class="col-md-4 col-sm-12 text-center p-5">
+            <h4 class="text-danger">
+                ADMINISTRATEURS
+            </h4>
+            <a href="" class="btn btn-danger">CONSULTER</a>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

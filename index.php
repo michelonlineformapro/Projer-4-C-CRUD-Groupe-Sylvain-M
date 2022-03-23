@@ -60,7 +60,7 @@ function connexion()
     }
 
     if(isset($_POST['email']) && !empty($_POST['email']) && isset($_POST['password']) && !empty($_POST['password'])){
-        //sanitize = desinfecter les champs
+        //sanitize = désinfecter les champs
         $emailUser = trim(htmlspecialchars($_POST['email']));
         $passwordUser = trim(htmlspecialchars($_POST['password']));
 

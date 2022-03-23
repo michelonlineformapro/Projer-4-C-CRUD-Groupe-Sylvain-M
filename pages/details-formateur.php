@@ -63,7 +63,7 @@ if($connexion) {
         <p>Né le <?= $date->format("d-m-Y")." (<strong>" .$res["age_formateur"] . "ans</strong>)"; ?></p>
         <p>Joignable au <strong><?= $res["telephone_formateur"] ?></strong></p>
         <p>Adresse email : <?= $res["email_formateur"]; ?></p>
-        
+
 
     </div>
 </div>

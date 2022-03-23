@@ -125,9 +125,7 @@ if(isset($_SESSION["email"])){
                                 <br />
                                 <div class="container-fluid d-flex justify-content-center">
 
-                                    <a href="details_etudiant.php?id_etudiant=<?= $etudiants['id_etudiant'] ?>" class="mt-2 btn btn-success mx-2">Détails</a>
-                                    <a href="editer_etudiant.php?id_etudiant=<?= $etudiants['id_etudiant'] ?>" class="mt-2 btn btn-warning mx-2">Editer</a>
-                                    <a href="supprimer_etudiant.php?id_etudiant=<?= $etudiants['id_etudiant'] ?>" class="mt-2 btn btn-danger mx-2">Supprimer</a>
+                                    <a href="details_etudiant.php?etudiant=<?= $etudiants['id_etudiant'] ?>" class="mt-2 btn btn-success mx-2">Détails</a>
 
                                 </div>
 
@@ -148,8 +146,6 @@ if(isset($_SESSION["email"])){
     <?php
     //Deconnexion et destruction de la session $_SESSION['email']
     function deconnexion(){
-        var_dump("hello");
-        echo "elloo";
         session_unset();
         session_destroy();
         header('Location: ../index.php');

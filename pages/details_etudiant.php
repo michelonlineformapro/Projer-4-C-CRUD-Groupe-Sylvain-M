@@ -73,9 +73,11 @@ if(isset($_SESSION["email"])){
 
 
 <form method="post">
-    <button class="btn btn-danger" name="btn-supprimer">
-        Supprimer <?= $details_etudiant['nom_etudiant'] .$details_etudiant['prenom_etudiant'] ?>
-    </button>
+    <div class="text-center">
+        <button class="btn btn-danger" name="btn-supprimer">
+            Supprimer <?= $details_etudiant['nom_etudiant']. " " .$details_etudiant['prenom_etudiant'] ?>
+        </button>
+    </div>
 </form>
 
 </body>
@@ -90,7 +92,7 @@ if(isset($_SESSION["email"])){
 
         if($delete){
             echo "Votre etudiant a été supprimer";
-            echo "<a href='etudiants.php' class='btn btn-warning'>Retour</a>";
+            echo "<div class='text-center'><a href='etudiants.php' class='btn btn-warning'>Retour</a></div>";
 
                ?>
                 <style>

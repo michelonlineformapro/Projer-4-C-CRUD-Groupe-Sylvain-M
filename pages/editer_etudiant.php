@@ -2,9 +2,40 @@
 //Demarrer la session php
 session_start();
 
+//Connexion a la base de donnée ecommerce via PDO
+//Les variable de phpmyadmin
+$user = "root";
+$pass = "";
+//test d'erreur
+try {
+    /*
+     * PHP Data Objects est une extension définissant l'interface pour accéder à une base de données avec PHP. Elle est orientée objet, la classe s’appelant PDO.
+     */
+    //Instance de la classe PDO (Php Data Object)
+    $dbh = new PDO('mysql:host=localhost;dbname=ecommerce;charset=UTF8', $user, $pass);
+    //Debug de pdo
+    /*
+     * L'opérateur de résolution de portée (aussi appelé Paamayim Nekudotayim) ou, en termes plus simples,
+     * le symbole "double deux-points" (::), fournit un moyen d'accéder aux membres static ou constant, ainsi qu'aux propriétés ou méthodes surchargées d'une classe.
+     */
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //echo "<p class='container alert alert-success text-center'>Vous êtes connectez a PDO MySQL</p>";
+
+} catch (PDOException $e) {
+    print "Erreur !: " . $e->getMessage() . "<br/>";
+    die();
+}
+
+$sql = "SELECT * FROM etudiants WHERE id_etudiant = ?";
+$request = $dbh->prepare($sql);
+$id = $_GET['etudiant'];
+$request->bindParam(1, $id);
+$request->execute();
+$details = $request->fetch();
+
 if(isset($_SESSION["email"])){
-?>
-       <!doctype html>
+    ?>
+    <!doctype html>
     <html lang="fr">
     <head>
         <!-- Required meta tags -->
@@ -31,47 +62,47 @@ if(isset($_SESSION["email"])){
     <div class="container">
 
 
-        <form action="traitement_ajouter_etudiant.php"  id="form-login" method="post" enctype="multipart/form-data">
+        <form action="traitement_editer_etudiant.php?etudiant=<?= $details['id_etudiant'] ?>"  id="form-login" method="post" enctype="multipart/form-data">
             <div class="text-center">
                 <img src="../assets/img/lego.jpg" alt="logo online" title="Onlineformapro.com">
             </div>
             <div class="mb-3">
                 <label for="nom_etudiant" class="form-label">Nom étudiants</label>
-                <input type="text" class="form-control" id="nom_etudiant" name="nom_etudiant" required>
+                <input type="text" class="form-control" id="nom_etudiant" name="nom_etudiant" value="<?= $details['nom_etudiant'] ?>" required>
             </div>
 
             <div class="mb-3">
                 <label for="pernom_etudiant" class="form-label">Prenom étudiants</label>
-                <input type="text" class="form-control" id="prenom_etudiant" name="prenom_etudiant" required>
+                <input type="text" class="form-control" id="prenom_etudiant" name="prenom_etudiant" value="<?= $details['prenom_etudiant'] ?>" required>
             </div>
 
             <div class="mb-3">
                 <label for="image_produit" class="form-label">Avatar</label>
-                <input type="file" class="form-control" id="image_produit" name="avatar_etudiant" required>
+                <input type="file" class="form-control" id="image_produit" name="avatar_etudiant" value="<?= $details['avatar_etudiant'] ?>" required>
             </div>
 
             <div class="mb-3">
                 <label for="date_depot" class="form-label">Date de naissance</label>
-                <input type="date" class="form-control" id="date_depot" name="date_naissance_etudiant" required>
+                <input type="date" class="form-control" id="date_depot" name="date_naissance_etudiant" value="<?= $details['date_naissance_etudiant'] ?>" required>
             </div>
 
             <div class="mb-3">
                 <label for="telephone_etudiant" class="form-label">Téléphone</label>
-                <input type="text"  class="form-control" id="telephone_etudiant" name="telephone_etudiant" required>
+                <input type="text"  class="form-control" id="telephone_etudiant" name="telephone_etudiant" value="<?= $details['telephone_etudiant'] ?>" required>
             </div>
 
             <div class="mb-3">
                 <label for="email_etudiant" class="form-label">Email</label>
-                <input type="email" class="form-control"  id="email_etudiant" name="email_etudiant" required>
+                <input type="email" class="form-control"  id="email_etudiant" name="email_etudiant" value="<?= $details['email_etudiant'] ?>" required>
             </div>
             <div class="mb-3">
                 <label for="age_etudiant" class="form-label">age</label>
-                <input type="number" step="0.01" class="form-control" id="age_etudiant" name="age_etudiant" required>
+                <input type="number" step="0.01" class="form-control" id="age_etudiant" name="age_etudiant" value="<?= $details['age_etudiant'] ?>" required>
             </div>
 
             <div class="mb-3">
                 <label for="prix_produit" class="form-label">Nom de la formation</label>
-                <input type="text" step="0.01" class="form-control" id="prix_produit" name="formation" required>
+                <input type="text" step="0.01" class="form-control" id="prix_produit" name="formation" value="<?= $details['formation'] ?>" required>
             </div>
 
             <div class="mb-3">
@@ -95,7 +126,7 @@ if(isset($_SESSION["email"])){
     </body>
     </html>
 
-<?php
+    <?php
 }else{
     header("Location: ../index.php");
 }

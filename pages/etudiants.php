@@ -126,7 +126,7 @@ if(isset($_SESSION["email"])){
                                 <div class="container-fluid d-flex justify-content-center">
 
                                     <a href="details_etudiant.php?etudiant=<?= $etudiants['id_etudiant'] ?>" class="mt-2 btn btn-success mx-2">Détails</a>
-
+                                    <a href="editer_etudiant.php?etudiant=<?= $etudiants['id_etudiant'] ?>" class="mt-2 btn btn-info mx-2">Editer</a>
                                 </div>
 
                             </div>

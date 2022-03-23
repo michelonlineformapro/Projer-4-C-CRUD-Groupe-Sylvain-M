@@ -1,9 +1,36 @@
 
 <?php
+//Demarrer la session php
 session_start();
+
 if(isset($_SESSION["email"])){
 
-    ?>
+
+//Connexion a la base de donnée ecommerce via PDO
+//Les variable de phpmyadmin
+$user = "root";
+$pass = "";
+//test d'erreur
+try {
+    /*
+     * PHP Data Objects est une extension définissant l'interface pour accéder à une base de données avec PHP. Elle est orientée objet, la classe s’appelant PDO.
+     */
+    //Instance de la classe PDO (Php Data Object)
+    $dbh = new PDO('mysql:host=localhost;dbname=ecommerce;charset=UTF8', $user, $pass);
+    //Debug de pdo
+    /*
+     * L'opérateur de résolution de portée (aussi appelé Paamayim Nekudotayim) ou, en termes plus simples,
+     * le symbole "double deux-points" (::), fournit un moyen d'accéder aux membres static ou constant, ainsi qu'aux propriétés ou méthodes surchargées d'une classe.
+     */
+    $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //echo "<p class='container alert alert-success text-center'>Vous êtes connectez a PDO MySQL</p>";
+
+} catch (PDOException $e) {
+    print "Erreur !: " . $e->getMessage() . "<br/>";
+    die();
+}
+
+?>
 <!doctype html>
 <html lang="fr">
 <head>
@@ -29,6 +56,7 @@ if(isset($_SESSION["email"])){
     ?>
 </header>
 <?php
+/////////////NE PAS OUBLIER : <form enctype="multipart/form-data">//////////////////
 
 //Upload de fichier
 //Existance de ma superglobale $_FILES
@@ -57,6 +85,7 @@ if(isset($_FILES['avatar_etudiant'])){
     echo "<p class='container alert alert-danger'>Le fichier est invalide seul les format .png, .jpg, .bmp, .svg, .webp sont autorisé !</p>";
 }
 
+
 //Connexion a la base de donnée ecommer via PDO
 //Les variable de phpmyadmin
 $user = "root";
@@ -81,64 +110,38 @@ try {
     die();
 }
 
-    if($dbh){
-        //Requète SQL de selection des produits
-        $sql = "INSERT INTO `etudiants`(`id_etudiant`, `nom_etudiant`, `prenom_etudiant`, `avatar_etudiant`, `date_naissance_etudiant`, `telephone_etudiant`, `email_etudiant`, `age_etudiant`, `formation`, `bac_etudiant`) VALUES (?,?,?,?,?,?,?,?,?,?)";
-        //Requète préparée = connexion + methode prepare + requete sql
-        //Les requètes préparée lutte contre les injections SQL
-        //PDO::prepare — Prépare une requête à l'exécution et retourne un objet
-        $insert = $dbh->prepare($sql);
-        //Bindé les paramètre
-        //Liés les paramètre du formulaire a la table phpmyadmin
-        //PDOStatement::bindParam — Lie un paramètre à un nom de variable spécifique
-        $insert->bindParam(1, $_POST['id_etudiant']);
-        $insert->bindParam(2, $_POST['nom_etudiant']);
-        $insert->bindParam(3, $_POST['prenom_etudiant']);
-        $insert->bindParam(4, $_POST['avatar_etudiant']);
-        $insert->bindParam(5, $_POST['date_naissance_etudiant']);
-        $insert->bindParam(6, $_POST['telephone_etudiant']);
-        $insert->bindParam(7, $_POST['email_etudiant']);
-        $insert->bindParam(8, $_POST['age_etudiant']);
-        $insert->bindParam(9, $_POST['formation']);
-        $insert->bindParam(10, $_POST['bac_etudiant']);
+if($dbh){
+    //Requète SQL de selection des produits
+    $sql = "UPDATE `etudiants` SET `nom_etudiant`= ?,`prenom_etudiant`= ?,`avatar_etudiant`= ?,`date_naissance_etudiant`= ?,`telephone_etudiant`= ?,`email_etudiant`= ?,`age_etudiant`= ?,`formation`= ?,`bac_etudiant`= ? WHERE id_etudiant = ?";
+    //Requète préparée = connexion + methode prepare + requete sql
+    //Les requètes préparée lutte contre les injections SQL
+    //PDO::prepare — Prépare une requête à l'exécution et retourne un objet
+    $update = $dbh->prepare($sql);
+    //executer la requète préparée
+    //PDOStatement::execute — Exécute une requête préparée
+    //Elle execute la reqète passé dans un tableau de valeur
+    $update->execute(array(
+        $_POST['nom_etudiant'],
+        $_POST['prenom_etudiant'],
+        $_POST['avatar_etudiant'],
+        $_POST['date_naissance_etudiant'],
+        $_POST['telephone_etudiant'],
+        $_POST['email_etudiant'],
+        $_POST['age_etudiant'],
+        $_POST['formation'],
+        $_POST['bac_etudiant'],
+        $_GET['etudiant']
+    ));
 
-
-        //executer la requète préparée
-        //PDOStatement::execute — Exécute une requête préparée
-        //Elle execute la reqète passé dans un tableau de valeur
-        $insert->execute(array(
-            $_POST['id_etudiant'],
-            $_POST['nom_etudiant'],
-            $_POST['prenom_etudiant'],
-            $_POST['avatar_etudiant'],
-            $_POST['date_naissance_etudiant'],
-            $_POST['telephone_etudiant'],
-            $_POST['email_etudiant'],
-            $_POST['age_etudiant'],
-            $_POST['formation'],
-            $_POST['bac_etudiant'],
-        ));
-
-        //var_dump($insert);
-
-        if($insert){
-
-            echo "<div class='text-center'><p class='container alert alert-success'>Votre étudiant a été ajouté avec succès !</p></div>";
-            echo "<div class='text-center'><a href='etudiants.php' class='container btn btn-success'>Voir les etudiants</a></div>";
-        }else{
-            echo "<p class='alert alert-danger'>Erreur lors de l'ajout de l'etudiant</p>";
-        }
+    if($update){
+        echo "<p class='container alert alert-success'>Votre etudiant a été mis a jour avec succès !</p>";
+        echo "<div class='text-center'><a href='etudiants.php' class='container btn btn-success'>Voir les etudiants</a></div> ";
+    }else{
+        echo "<p class='alert alert-danger'>Erreur lors de l'ajout de l'etudiant</p>";
     }
+}
 }else{
     header("Location: ../index.php");
 }
-
-
-
 ?>
 
-
-
-
-</body>
-</html>

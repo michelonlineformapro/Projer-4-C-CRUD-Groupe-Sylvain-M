@@ -52,7 +52,7 @@ if($connexion){
     <div class="row">
         <h1>Editer un formateur</h1>
         <hr>
-        <form method="post" action="traitement_edition_formateur.php?id=<?= $res["id_formateur"] ?>">
+        <form method="post" action="traitement_edition_formateur.php?id=<?= $res["id_formateur"] ?>" enctype="multipart/form-data">
             <label for="nom">Nom :</label><br>
             <input type="text" name="nom" id="nom" value="<?= $res["nom_formateur"] ?>"><br><br>
 
@@ -60,7 +60,7 @@ if($connexion){
             <input type="text" name="prenom" id="prenom" value="<?= $res["prenom_formateur"] ?>"><br><br>
 
             <label for="avatar">Avatar :</label><br>
-            <input type="text" name="avatar" id="avatar" class="long" value="<?= $res["avatar_formateur"] ?>"><br><br>
+            <input type="file" name="avatar" id="avatar" class="long" value="<?= $res["avatar_formateur"] ?>"><br><br>
 
             <label for="date-naissance">Date de naissance :</label><br>
             <input type="text" name="date-naissance" id="date-naissance" value="<?= $res["date_naissance_formateur"] ?>"><br><br>

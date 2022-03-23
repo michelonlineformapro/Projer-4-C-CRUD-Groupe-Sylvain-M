@@ -30,7 +30,7 @@ function deconnexion(){
     <div class="row">
         <h1>Ajouter un formateur</h1>
         <hr>
-        <form method="post" action="traitement-ajout-formateur.php">
+        <form method="post" action="traitement-ajout-formateur.php" enctype="multipart/form-data">
             <label for="nom">Nom :</label><br>
             <input type="text" name="nom" id="nom"><br><br>
 
@@ -38,7 +38,7 @@ function deconnexion(){
             <input type="text" name="prenom" id="prenom"><br><br>
 
             <label for="avatar">Avatar :</label><br>
-            <input type="text" name="avatar" id="avatar" class="long"><br><br>
+            <input type="file" name="avatar" id="avatar" class="long"><br><br>
 
             <label for="date-naissance">Date de naissance :</label><br>
             <input type="text" name="date-naissance" id="date-naissance"><br><br>

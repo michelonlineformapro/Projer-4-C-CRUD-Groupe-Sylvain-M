@@ -4,6 +4,21 @@ if(!isset($_SESSION["email"])){
     header('Location:../index.php');
 }
 
+if(isset($_FILES["avatar"])){
+    $dir = "../assets/img/";
+    $photo_produit = $dir. basename($_FILES["avatar"]["name"]);
+    $_POST["avatar"] = $photo_produit;
+
+    if(move_uploaded_file($_FILES["avatar"]['tmp_name'], $photo_produit)){
+        echo "<p>Le fichier est uploadé.</p>";
+    }else{
+        echo "<p>Erreur : téléchargement impossible !</p>";
+    }
+}
+else{
+    echo "<p>Le fichier est invalide.</p>";
+}
+
 if(isset($_POST["ajouter-formateur"])){
 
     // On se connecte à la base de données

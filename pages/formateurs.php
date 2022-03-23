@@ -3,13 +3,13 @@ session_start();
 if(!isset($_SESSION["email"])){
     header('Location:../index.php');
 }
-if(isset($_POST["deconnecte"])){
+if(isset($_POST["deconnexion"])){
     deconnexion();
 }
 function deconnexion(){
     session_unset();
     session_destroy();
-    header('Location:index.php');
+    header('Location:../index.php');
 }
 
 // On se connecte à la base de données
@@ -46,7 +46,7 @@ $formateurs = $connexion->query($req);
 <div class="container">
     <div class="menu">
         <a class="btn btn-primary ajout" href="ajouter-formateur.php">Ajouter un formateur</a>
-        <form action="../index.php" method="post">
+        <form action="formateurs.php" method="post">
             <button type="submit" class="btn btn-dark" name="deconnexion" id="btn-deco">Déconnexion</button>
         </form>
     </div>
